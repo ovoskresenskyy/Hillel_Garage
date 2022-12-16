@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PutMapping
+    @PostMapping
     public User addUser(@RequestBody User user){
         return userService.addUser(user);
     }
@@ -34,7 +34,7 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping
+    @PutMapping
     public User updateUser(@RequestBody User user){
         return null;
     }
