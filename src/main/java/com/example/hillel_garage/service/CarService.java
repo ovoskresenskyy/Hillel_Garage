@@ -36,4 +36,13 @@ public class CarService {
                 .stream()
                 .toList();
     }
+
+    public List<Car> getAll(int userID){
+        if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
+        return cars.entrySet()
+                .stream()
+                .filter(EntrySet -> EntrySet.getKey() == userID)
+                .map(Map.Entry::getValue)
+                .toList();
+    }
 }
