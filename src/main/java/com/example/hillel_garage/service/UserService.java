@@ -44,6 +44,13 @@ public class UserService {
         return user;
     }
 
+    public User deleteUser(int id) {
+        User user = getUser(id);
+        users.remove(user);
+        carService.deleteCars(id);
+        return user;
+    }
+
     public Car addUsersCar(int userID, Car car) {
         for (Car usersCar : carService.getAll(userID)) {
             if (usersCar.equals(car))

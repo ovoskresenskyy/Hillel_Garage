@@ -39,6 +39,11 @@ public class UserController {
         return userService.updateUser(user);
     }
 
+    @DeleteMapping("/{id}")
+    public User deleteUser(@PathVariable int id) {
+        return userService.deleteUser(id);
+    }
+
     @PostMapping("/{userID}/car")
     public Car addCar(@PathVariable int userID, @RequestBody Car car){
         return userService.addUsersCar(userID, car);

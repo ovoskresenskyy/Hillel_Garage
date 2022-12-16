@@ -42,4 +42,16 @@ public class CarService {
                 .map(Map.Entry::getValue)
                 .toList();
     }
+
+    public Car updateCar(Car car){
+        return car;
+    }
+
+    public Car deleteCar(int id) {
+        return getCar(id);
+    }
+
+    public void deleteCars(int userID) {
+         cars.remove(userID);
+    }
 }
