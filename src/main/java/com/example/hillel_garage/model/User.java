@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 public class User {
     private String name;
+    private int age;
     private int id;
     private List<Car> cars;
 }
