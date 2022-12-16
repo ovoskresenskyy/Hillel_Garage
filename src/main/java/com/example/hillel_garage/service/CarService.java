@@ -12,11 +12,6 @@ public class CarService {
     private final Map<Integer, Car> cars = new HashMap<>();
     private int carCounter;
 
-    public Car getCar(int id){
-        for (Car car : cars.values()) if (car.getId() == id) return car;
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with this ID not found");
-    }
-
     public Car addCar(int userId, Car car){
         car.setId(carCounter++);
         cars.put(userId, car);
@@ -25,6 +20,11 @@ public class CarService {
 
     public Car addCar(Car car){
         return addCar(-1, car);
+    }
+
+    public Car getCar(int id){
+        for (Car car : cars.values()) if (car.getId() == id) return car;
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with this ID not found");
     }
 
     public List<Car> getAll(){

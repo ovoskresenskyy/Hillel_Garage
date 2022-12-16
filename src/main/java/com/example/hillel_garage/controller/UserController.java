@@ -20,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user){
+    public User addUser(@RequestBody User user) {
         return userService.addUser(user);
     }
 
@@ -30,12 +30,12 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user){
+    public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
 
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("/{userID}/car")
-    public Car addCar(@PathVariable int userID, @RequestBody Car car){
+    public Car addUsersCar(@PathVariable int userID, @RequestBody Car car) {
         return userService.addUsersCar(userID, car);
     }
 }
