@@ -38,11 +38,18 @@ public class UserService {
         return users;
     }
 
-    public Car addUsersCar(User user, Car car) {
-        for (Car usersCar : user.getCars()) {
-            if (usersCar.equals(car)) throw new ResponseStatusException(HttpStatus.CONFLICT, "This car was already added.");
+    public User updateUser(User userFromPOSTRequest) {
+        User user = getUser(userFromPOSTRequest.getId());
+        user.setAge(userFromPOSTRequest.getAge());
+        return user;
+    }
+
+    public Car addUsersCar(int userID, Car car) {
+        for (Car usersCar : carService.getAll(userID)) {
+            if (usersCar.equals(car))
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "This car was already added.");
         }
 
-        return carService.addCar(user.getId(), car);
+        return carService.addCar(userID, car);
     }
 }

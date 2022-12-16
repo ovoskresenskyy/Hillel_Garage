@@ -36,11 +36,11 @@ public class UserController {
 
     @PutMapping
     public User updateUser(@RequestBody User user){
-        return null;
+        return userService.updateUser(user);
     }
 
-    @PutMapping("/{id}/car")
-    public Car addCar(@PathVariable int id, @RequestBody Car car){
-        return userService.addUsersCar(userService.getUser(id), car);
+    @PostMapping("/{userID}/car")
+    public Car addCar(@PathVariable int userID, @RequestBody Car car){
+        return userService.addUsersCar(userID, car);
     }
 }
