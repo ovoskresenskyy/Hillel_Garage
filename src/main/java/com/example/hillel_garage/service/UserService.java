@@ -44,7 +44,7 @@ public class UserService {
 
     public Car addUsersCar(User user, Car car) {
         for (Car usersCar : user.getCars()) {
-            if (usersCar.equals(car)) return car;
+            if (usersCar.equals(car)) throw new ResponseStatusException(HttpStatus.CONFLICT, "This car was already added.");
         }
         Car newCar = carService.addCar(car);
         user.getCars().add(newCar);
