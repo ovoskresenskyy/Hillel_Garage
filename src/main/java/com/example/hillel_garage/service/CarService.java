@@ -1,7 +1,6 @@
 package com.example.hillel_garage.service;
 
 import com.example.hillel_garage.model.Car;
-import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,9 +13,7 @@ public class CarService {
     private int carCounter;
 
     public Car getCar(int id){
-        for (Car car : cars.values()) {
-            if (car.getId() == id) return car;
-        }
+        for (Car car : cars.values()) if (car.getId() == id) return car;
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with this ID not found");
     }
 
