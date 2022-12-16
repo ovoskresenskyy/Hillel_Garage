@@ -46,8 +46,7 @@ public class UserService {
         for (Car usersCar : user.getCars()) {
             if (usersCar.equals(car)) throw new ResponseStatusException(HttpStatus.CONFLICT, "This car was already added.");
         }
-        Car newCar = carService.addCar(car);
-        user.getCars().add(newCar);
-        return newCar;
+
+        return carService.addCar(user.getId(), car);
     }
 }
