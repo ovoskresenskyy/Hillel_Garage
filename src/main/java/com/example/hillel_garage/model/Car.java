@@ -7,5 +7,6 @@ import lombok.Data;
 @Builder
 public class Car {
     private int id;
-    private String name;
+    private final String name;
+    private String color;
 }
