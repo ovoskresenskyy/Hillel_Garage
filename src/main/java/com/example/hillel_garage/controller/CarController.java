@@ -21,6 +21,11 @@ public class CarController {
         this.carService = carService;
     }
 
+    @PostMapping
+    public Car addCar(@RequestBody Car car){
+        return carService.addCar(car);
+    }
+
     @GetMapping("/{id}")
     public Car getCar(@PathVariable int id) {
         return carService.getCar(id);
