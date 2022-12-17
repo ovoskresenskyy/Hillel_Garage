@@ -12,29 +12,29 @@ public class CarService {
     private final Map<Integer, Car> cars = new HashMap<>();
     private int carCounter;
 
-    public Car addCar(int userId, Car car){
-        car.setId(carCounter++);
+    public Car addCar(int userId, Car car) {
+        car.setId(++carCounter);
         cars.put(userId, car);
         return car;
     }
 
-    public Car addCar(Car car){
-        return addCar(-1, car);
+    public Car addCar(Car car) {
+        return addCar(0, car);
     }
 
-    public Car getCar(int id){
+    public Car getCar(int id) {
         for (Car car : cars.values()) if (car.getId() == id) return car;
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with this ID not found");
     }
 
-    public List<Car> getAll(){
+    public List<Car> getAll() {
         if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
         return cars.values()
                 .stream()
                 .toList();
     }
 
-    public List<Car> getAll(int userID){
+    public List<Car> getAll(int userID) {
         return cars.entrySet()
                 .stream()
                 .filter(EntrySet -> EntrySet.getKey() == userID)
@@ -55,6 +55,6 @@ public class CarService {
     }
 
     public void deleteUsersCars(int userID) {
-         cars.remove(userID);
+        cars.remove(userID);
     }
 }
