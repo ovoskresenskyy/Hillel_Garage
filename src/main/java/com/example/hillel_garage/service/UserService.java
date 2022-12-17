@@ -56,7 +56,7 @@ public class UserService {
     }
 
     public List<Car> getCars(int userID) {
-        List<Car> cars = carService.getAll(userID);
+        List<Car> cars = carService.getAllByOwner(userID);
         if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
         return cars;
     }
