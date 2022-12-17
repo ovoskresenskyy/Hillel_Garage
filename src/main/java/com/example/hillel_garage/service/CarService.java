@@ -9,12 +9,14 @@ import java.util.*;
 
 @Service
 public class CarService {
-    private final Map<Integer, Car> cars = new HashMap<>();
+    private final Map<Integer, List<Car>> carsByOwners = new HashMap<>();
     private int carCounter;
 
     public Car addCar(int userId, Car car) {
         car.setId(++carCounter);
-        cars.put(userId, car);
+        List<Car> cars = carsByOwners.getOrDefault(userId, new LinkedList<>());
+        cars.add(car);
+        carsByOwners.put(userId, cars);
         return car;
     }
 
@@ -23,22 +25,24 @@ public class CarService {
     }
 
     public Car getCar(int id) {
-        for (Car car : cars.values()) if (car.getId() == id) return car;
+        for (Car car : getAll()) if (car.getId() == id) return car;
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Car with this ID not found");
     }
 
     public List<Car> getAll() {
-        if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
-        return cars.values()
+        if (carsByOwners.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
+        return carsByOwners.values()
                 .stream()
+                .flatMap(Collection::stream)
                 .toList();
     }
 
     public List<Car> getAll(int userID) {
-        return cars.entrySet()
+        return carsByOwners.entrySet()
                 .stream()
-                .filter(EntrySet -> EntrySet.getKey() == userID)
+                .filter(f -> f.getKey() == userID)
                 .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
                 .toList();
     }
 
@@ -50,11 +54,11 @@ public class CarService {
 
     public Car deleteCar(int id) {
         Car car = getCar(id);
-        cars.values().removeIf(value -> value.equals(car));
+        carsByOwners.values().removeIf(value -> value.equals(car));
         return car;
     }
 
     public void deleteUsersCars(int userID) {
-        cars.remove(userID);
+        carsByOwners.remove(userID);
     }
 }
