@@ -47,7 +47,7 @@ public class UserService {
     public User deleteUser(int id) {
         User user = getUser(id);
         users.remove(user);
-        carService.deleteCars(id);
+        carService.deleteUsersCars(id);
         return user;
     }
 

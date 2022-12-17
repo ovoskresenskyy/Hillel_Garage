@@ -51,7 +51,7 @@ public class CarService {
         return getCar(id);
     }
 
-    public void deleteCars(int userID) {
+    public void deleteUsersCars(int userID) {
          cars.remove(userID);
     }
 }
