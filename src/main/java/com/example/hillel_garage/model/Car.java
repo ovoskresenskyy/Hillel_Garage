@@ -9,4 +9,5 @@ public class Car {
     private int id;
     private final String name;
     private String color;
+    private int ownerID;
 }
