@@ -33,9 +33,9 @@ public class CarController {
         return carService.getAll();
     }
 
-    @PutMapping
-    public Car updateCar(@RequestBody Car car) {
-        return carService.updateCar(car);
+    @PutMapping("/{id}")
+    public Car updateColor(@PathVariable int id, @RequestParam(name = "color") String color) {
+        return carService.updateColor(id, color);
     }
 
     @DeleteMapping("/{id}")

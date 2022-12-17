@@ -34,9 +34,9 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PutMapping
-    public User updateUser(@RequestBody User user) {
-        return userService.updateUser(user);
+    @PutMapping("/{id}")
+    public User updateAge(@PathVariable int id, @RequestParam(name = "age") int age) {
+        return userService.updateAge(id, age);
     }
 
     @DeleteMapping("/{id}")

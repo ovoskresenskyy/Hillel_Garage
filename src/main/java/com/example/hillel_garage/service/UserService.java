@@ -38,9 +38,9 @@ public class UserService {
         return users;
     }
 
-    public User updateUser(User userFromRequest) {
-        User user = getUser(userFromRequest.getId());
-        user.setAge(userFromRequest.getAge());
+    public User updateAge(int id, int age) {
+        User user = getUser(id);
+        user.setAge(age);
         return user;
     }
 
