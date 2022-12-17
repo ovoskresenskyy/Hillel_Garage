@@ -43,7 +43,9 @@ public class CarService {
                 .toList();
     }
 
-    public Car updateCar(Car car){
+    public Car updateCar(Car carFromRequest){
+        Car car = getCar(carFromRequest.getId());
+        car.setColor(carFromRequest.getColor());
         return car;
     }
 

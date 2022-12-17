@@ -31,9 +31,9 @@ public class CarController {
         return carService.getAll();
     }
 
-    @PostMapping
-    public Car addCar(@RequestBody Car car){
-        return carService.addCar(car);
+    @PutMapping
+    public Car updateCar(@RequestBody Car car) {
+        return carService.updateCar(car);
     }
 
     @DeleteMapping("/{id}")
