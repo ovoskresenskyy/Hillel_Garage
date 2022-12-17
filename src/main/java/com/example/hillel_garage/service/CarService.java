@@ -48,7 +48,9 @@ public class CarService {
     }
 
     public Car deleteCar(int id) {
-        return getCar(id);
+        Car car = getCar(id);
+        cars.values().removeIf(value -> value.equals(car));
+        return car;
     }
 
     public void deleteUsersCars(int userID) {
