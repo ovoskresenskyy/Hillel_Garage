@@ -54,7 +54,7 @@ public class CarService {
 
     public Car deleteCar(int id) {
         Car car = getCar(id);
-        carsByOwners.values().removeIf(value -> value.equals(car));
+        getAll().remove(car);
         return car;
     }
 
