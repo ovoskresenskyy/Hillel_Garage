@@ -52,11 +52,12 @@ public class UserService {
     }
 
     public Car addUsersCar(int userID, Car car) {
-        for (Car usersCar : carService.getAll(userID)) {
-            if (usersCar.equals(car))
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "This car was already added.");
-        }
-
         return carService.addCar(userID, car);
+    }
+
+    public List<Car> getCars(int userID) {
+        List<Car> cars = carService.getAll(userID);
+        if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
+        return cars;
     }
 }

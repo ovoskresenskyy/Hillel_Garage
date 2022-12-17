@@ -35,7 +35,6 @@ public class CarService {
     }
 
     public List<Car> getAll(int userID){
-        if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
         return cars.entrySet()
                 .stream()
                 .filter(EntrySet -> EntrySet.getKey() == userID)

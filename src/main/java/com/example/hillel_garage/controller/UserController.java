@@ -48,4 +48,9 @@ public class UserController {
     public Car addUsersCar(@PathVariable int userID, @RequestBody Car car) {
         return userService.addUsersCar(userID, car);
     }
+
+    @GetMapping("/{userID}/cars")
+    public List<Car> getAllCars(@PathVariable int userID) {
+        return userService.getCars(userID);
+    }
 }
