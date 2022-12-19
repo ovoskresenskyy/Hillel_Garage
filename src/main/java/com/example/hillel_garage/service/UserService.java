@@ -7,13 +7,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserService {
 
-    private final List<User> users = new LinkedList<>();
+    private final Map<User, List<Car>> usersAndCars = new HashMap<>();
     private int userCounter;
     private final CarService carService;
 
@@ -24,18 +26,20 @@ public class UserService {
 
     public User addUser(User user) {
         user.setId(++userCounter);
-        users.add(user);
+        usersAndCars.put(user, new LinkedList<>());
         return user;
     }
 
     public User getUser(int id) {
-        for (User user : users) if (user.getId() == id) return user;
+        for (User user : usersAndCars.keySet()) if (user.getId() == id) return user;
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this ID not found");
     }
 
     public List<User> getAllUsers() {
-        if (users.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "User list is empty.");
-        return users;
+        if (usersAndCars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "User list is empty.");
+        return usersAndCars.keySet()
+                .stream()
+                .toList();
     }
 
     public User updateAge(int id, int age) {
@@ -46,13 +50,15 @@ public class UserService {
 
     public User deleteUser(int id) {
         User user = getUser(id);
-        users.remove(user);
+        usersAndCars.remove(user);
         carService.deleteUsersCars(id);
         return user;
     }
 
     public Car addUsersCar(int userID, Car car) {
-        return carService.addCar(userID, car);
+        Car newCar = carService.addCar(userID, car);
+        usersAndCars.get(getUser(userID)).add(newCar);
+        return newCar;
     }
 
     public List<Car> getCars(int userID) {
