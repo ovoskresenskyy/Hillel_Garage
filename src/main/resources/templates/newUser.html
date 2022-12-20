@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>User Management System</title>
+</head>
+<body>
+<div class="container">
+  <h1>User Management System</h1>
+  <hr>
+  <h2>Save User</h2>
+
+  <form action="#" th:action="@{/users/save}" th:object="${user}" method="POST">
+    <input type="hidden" th:field="*{id}" /></p>
+    <input type="text" th:field="*{name}" placeholder="Name"></p>
+    <input type="number" th:field="*{age}" placeholder="Age"></p>
+    <button type="submit">Add User</button>
+  </form>
+
+  <hr>
+
+  <a th:href="@{/users}"> Back to User List</a>
+</div>
+</body>
+</html>
