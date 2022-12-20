@@ -4,11 +4,15 @@ import com.example.hillel_garage.model.Car;
 import com.example.hillel_garage.model.User;
 import com.example.hillel_garage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/users")
 public class UserController {
 
@@ -24,33 +28,43 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @GetMapping("/{id}")
-    public User getUser(@PathVariable int id) {
-        return userService.getUser(id);
-    }
-
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public String getAllUsers(Model model) {
+        model.addAttribute("users", userService.getAllUsers());
+        return "userList";
     }
 
-    @PutMapping("/{id}")
-    public User updateAge(@PathVariable int id, @RequestParam(name = "age") int age) {
-        return userService.updateAge(id, age);
+    @GetMapping("/add_new")
+    public String addNewUser(Model model) {
+        User user = User.builder().build();
+        model.addAttribute("user", user);
+        return "newUser";
     }
 
-    @DeleteMapping("/{id}")
-    public User deleteUser(@PathVariable int id) {
-        return userService.deleteUser(id);
+    @PostMapping("/save")
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.addUser(user);
+        return "redirect:/users";
     }
 
-    @PostMapping("/{userID}/car")
-    public Car addUsersCar(@PathVariable int userID, @RequestBody Car car) {
-        return userService.addUsersCar(userID, car);
+    @GetMapping("/update_user/{id}")
+    public String updateUser(@PathVariable(value = "id") int id, Model model) {
+        model.addAttribute("user", userService.getUser(id));
+        return "updateUser";
     }
 
-    @GetMapping("/{userID}/cars")
-    public List<Car> getAllCars(@PathVariable int userID) {
-        return userService.getCars(userID);
-    }
+//    @DeleteMapping("/{id}")
+//    public User deleteUser(@PathVariable int id) {
+//        return userService.deleteUser(id);
+//    }
+//
+//    @PostMapping("/{userID}/car")
+//    public Car addUsersCar(@PathVariable int userID, @RequestBody Car car) {
+//        return userService.addUsersCar(userID, car);
+//    }
+//
+//    @GetMapping("/{userID}/cars")
+//    public List<Car> getAllCars(@PathVariable int userID) {
+//        return userService.getCars(userID);
+//    }
 }
