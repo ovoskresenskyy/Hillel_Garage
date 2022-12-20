@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of users</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div>
+    <h3>Users & cars</h3>
+    <a th:href="@{/users/add_new}" class="btn btn-primary btn-sm mb-3">Add User</a>
+    <table style="width:80%" border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Cars</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="element: ${usersAndCars}">
+            <td th:text="${element.key.id}"></td>
+            <td th:text="${element.key.name}"></td>
+            <td th:text="${element.key.age}"></td>
+            <td>
+                <table style="width:80%" border="1" class="table table-striped table-responsive-md">
+                    <tr th:each="car : ${element.value}">
+                        <td th:text="${car.id}"></td>
+                        <td th:text="${car.model}"></td>
+                        <td th:text="${car.color}"></td>
+                        <td>
+                            <a th:href="@{/users/car_update_form/{ownerID}/{id}(ownerID=${element.key.id},id=${car.id})}"
+                               class="btn btn-success">Update car</a>
+                            <a th:href="@{/users/car_delete/{ownerID}/{id}(ownerID=${element.key.id},id=${car.id})}"
+                               class="btn btn-danger">Delete car</a>
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+            <td>
+                <a th:href="@{/users/update_form/{id}(id=${element.key.id})}"
+                   class="btn btn-success">Update user</a>
+                <a th:href="@{/users/{id}/adding_car_form(id=${element.key.id})}"
+                   class="btn btn-primary">Add car</a>
+                <a th:href="@{/users/delete/{id}(id=${element.key.id})}"
+                   class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
