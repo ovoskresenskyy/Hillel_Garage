@@ -42,9 +42,10 @@ public class UserService {
                 .toList();
     }
 
-    public User updateAge(int id, int age) {
-        User user = getUser(id);
-        user.setAge(age);
+    public User updateUser(User incomingData) {
+        User user = getUser(incomingData.getId());
+        user.setName(incomingData.getName());
+        user.setAge(incomingData.getAge());
         return user;
     }
 
