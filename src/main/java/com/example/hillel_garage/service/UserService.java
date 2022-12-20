@@ -35,11 +35,8 @@ public class UserService {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User with this ID not found");
     }
 
-    public List<User> getAllUsers() {
-        //if (usersAndCars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "User list is empty.");
-        return usersAndCars.keySet()
-                .stream()
-                .toList();
+    public Map<User, List<Car>> getUsersAndCars() {
+        return usersAndCars;
     }
 
     public User updateUser(User incomingData) {
