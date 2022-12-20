@@ -30,7 +30,6 @@ public class CarService {
     }
 
     public List<Car> getAll() {
-        if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
         return cars;
     }
 
