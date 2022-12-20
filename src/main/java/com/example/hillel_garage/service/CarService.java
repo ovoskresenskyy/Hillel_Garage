@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class CarService {
@@ -33,15 +32,10 @@ public class CarService {
         return cars;
     }
 
-    public List<Car> getAllByOwner(int ownerID) {
-        return cars.stream()
-                .filter(car -> car.getOwnerID() == ownerID)
-                .collect(Collectors.toCollection(LinkedList::new));
-    }
-
-    public Car updateColor(int id, String color) {
-        Car car = getCar(id);
-        car.setColor(color);
+    public Car updateCar(Car incomingData) {
+        Car car = getCar(incomingData.getId());
+        car.setModel(incomingData.getModel());
+        car.setColor(incomingData.getColor());
         return car;
     }
 
