@@ -59,9 +59,11 @@ public class UserService {
         return newCar;
     }
 
-    public List<Car> getCars(int userID) {
-        List<Car> cars = carService.getAllByOwner(userID);
-        if (cars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Car list is empty.");
-        return cars;
+    public Car deleteUsersCar(int userID, int carID) {
+        Car car = carService.getCar(carID);
+        usersAndCars.get(getUser(userID)).remove(car);
+        carService.deleteCar(carID);
+        return car;
     }
+
 }
