@@ -36,7 +36,7 @@ public class UserService {
     }
 
     public List<User> getAllUsers() {
-        if (usersAndCars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "User list is empty.");
+        //if (usersAndCars.isEmpty()) throw new ResponseStatusException(HttpStatus.NO_CONTENT, "User list is empty.");
         return usersAndCars.keySet()
                 .stream()
                 .toList();
